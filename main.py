@@ -49,8 +49,6 @@ def toggle_display_password():
 #endregion
 
 
-
-
 root = tk.Tk()
 root.title('Algebra - Python Password Generator')
 # root.geometry('600x400')
