@@ -1,0 +1,96 @@
+import random as rd
+import tkinter as tk
+
+
+#region Funkcije
+def generate_password():
+    # od 33 do 126
+
+    password = ''
+    password_length = scl_password_length_var.get()
+
+    for _ in range(password_length):
+        rnd_char_number = rd.randint(33, 126)
+        rnd_char = chr(rnd_char_number)
+
+        password += rnd_char
+
+    lbl_display_password_var.set(password)
+
+
+def copy_password():
+    root.clipboard_clear()
+    root.clipboard_append(lbl_display_password_var.get())
+
+
+def reset():
+    lbl_display_password_var.set('')
+
+#endregion
+
+
+
+
+root = tk.Tk()
+root.title('Algebra - Python Password Generator')
+# root.geometry('600x400')
+
+#region Naslovna labela
+lbl_title = tk.Label(root,
+                     text='Password Generator',
+                     font=('Verdana', 20))
+lbl_title.grid(column=0, columnspan=3, row=0,
+               padx=10, pady=10, ipadx=5, ipady=5)
+#endregion
+
+
+#region Postavke frame
+lbl_frm_settings = tk.LabelFrame(root, text='Settings')
+lbl_frm_settings.grid(column=0, columnspan=3, row=1,
+                  padx=10, pady=10, ipadx=5, ipady=5)
+
+
+scl_password_length_var = tk.IntVar(value=10)
+scl_password_length = tk.Scale(lbl_frm_settings,
+                               orient='horizontal',
+                               length=300,
+                               variable=scl_password_length_var,
+                               from_=8,
+                               to=40)
+scl_password_length.grid(column=0, columnspan=3, row=0,
+                         padx=10, pady=10, ipadx=5, ipady=5)
+#endregion
+
+
+#region Gumbi
+btn_generate_password = tk.Button(root,
+                                  text='Generiraj lozinku',
+                                  command=generate_password)
+btn_generate_password.grid(column=0, row=2,
+                           padx=10, pady=10, ipadx=5, ipady=5)
+
+btn_copy_password = tk.Button(root,
+                              text='Kopiraj lozinku',
+                              command=copy_password)
+btn_copy_password.grid(column=1, row=2,
+                       padx=10, pady=10, ipadx=5, ipady=5)
+
+btn_reset = tk.Button(root,
+                      text='Resetiraj',
+                      command=reset)
+btn_reset.grid(column=2, row=2,
+               padx=10, pady=10, ipadx=5, ipady=5)
+#endregion
+
+
+#region Generirana lozinka
+lbl_display_password_var = tk.StringVar(value='')
+lbl_display_password = tk.Label(root,
+                                textvariable=lbl_display_password_var,
+                                font=('Verdana', 25))
+lbl_display_password.grid(column=0, columnspan=3, row=3,
+                          padx=10, pady=10, ipadx=5, ipady=5)
+#endregion
+
+
+root.mainloop()
