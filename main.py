@@ -4,16 +4,29 @@ import tkinter as tk
 
 #region Funkcije
 def generate_password():
-    # od 33 do 126
-
+    # posebni znakovi   33-47 | 58-64 | 91-96 | 123 - 126
+    # brojevi           48-57
+    # slova             65-90 | 97-122
+    # sve               33-126
     password = ''
     password_length = scl_password_length_var.get()
 
     for _ in range(password_length):
-        rnd_char_number = rd.randint(33, 126)
-        rnd_char = chr(rnd_char_number)
+        if cb_letters_only_var.get() and cb_sp_characters_only_var.get():
+            rnd_char_number_range = rd.choice([(65, 90), (97, 122), (33,47), (58, 64), (91, 96), (123, 126)])
+        elif cb_letters_only_var.get() and cb_numbers_only_var.get():
+            rnd_char_number_range = rd.choice([(48, 57), (65, 90), (97, 122)])
+        elif cb_numbers_only_var.get():
+            rnd_char_number_range = rd.choice([(48, 57)])
+        elif cb_sp_characters_only_var.get():
+            rnd_char_number_range = rd.choice([(33,47), (58, 64), (91, 96), (123, 126)])
+        else:
+            rnd_char_number_range = rd.choice([(33, 126)])
 
+        rnd_char_number = rd.randint(*rnd_char_number_range)
+        rnd_char = chr(rnd_char_number)
         password += rnd_char
+
 
     ent_display_password_var.set(password)
 
@@ -55,6 +68,28 @@ lbl_title.grid(column=0, columnspan=3, row=0,
 lbl_frm_settings = tk.LabelFrame(root, text='Settings')
 lbl_frm_settings.grid(column=0, columnspan=3, row=1,
                   padx=10, pady=10, ipadx=5, ipady=5)
+
+
+cb_letters_only_var = tk.BooleanVar()
+cb_letters_only = tk.Checkbutton(lbl_frm_settings,
+                                 text='Samo slova',
+                                 variable=cb_letters_only_var)
+cb_letters_only.grid(column=0, row=0,
+                     padx=10, pady=10, ipadx=5, ipady=5)
+
+cb_numbers_only_var = tk.BooleanVar()
+cb_numbers_only = tk.Checkbutton(lbl_frm_settings,
+                                 text='Samo brojevi',
+                                 variable=cb_numbers_only_var)
+cb_numbers_only.grid(column=1, row=0,
+                     padx=10, pady=10, ipadx=5, ipady=5)
+
+cb_sp_characters_only_var = tk.BooleanVar()
+cb_sp_characters_only = tk.Checkbutton(lbl_frm_settings,
+                                       text='Samo posebni znakovi',
+                                       variable=cb_sp_characters_only_var)
+cb_sp_characters_only.grid(column=2, row=0,
+                           padx=10, pady=10, ipadx=5, ipady=5)
 
 
 
@@ -116,7 +151,7 @@ ent_display_password_var = tk.StringVar(value='')
 ent_display_password = tk.Entry(root,
                                 bd=0,
                                 textvariable=ent_display_password_var,
-                                width=40,
+                                width=45,
                                 justify='center',
                                 background='systembuttonface',
                                 font=('Verdana', 25))
