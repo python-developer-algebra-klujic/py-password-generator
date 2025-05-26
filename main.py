@@ -53,6 +53,7 @@ root = tk.Tk()
 root.title('Algebra - Python Password Generator')
 # root.geometry('600x400')
 
+
 #region Naslovna labela
 lbl_title = tk.Label(root,
                      text='Password Generator',
