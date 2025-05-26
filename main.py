@@ -15,16 +15,23 @@ def generate_password():
 
         password += rnd_char
 
-    lbl_display_password_var.set(password)
+    ent_display_password_var.set(password)
 
 
 def copy_password():
     root.clipboard_clear()
-    root.clipboard_append(lbl_display_password_var.get())
+    root.clipboard_append(ent_display_password_var.get())
 
 
 def reset():
-    lbl_display_password_var.set('')
+    ent_display_password_var.set('')
+
+
+def toggle_display_password():
+    if rb_password_var.get() == 'display':
+        ent_display_password.config(show="")
+    else:
+        ent_display_password.config(show="*")
 
 #endregion
 
@@ -50,6 +57,27 @@ lbl_frm_settings.grid(column=0, columnspan=3, row=1,
                   padx=10, pady=10, ipadx=5, ipady=5)
 
 
+
+rb_password_var = tk.StringVar(value='display')
+rb_display_password = tk.Radiobutton(lbl_frm_settings,
+                                     text='Prikazi lozinku',
+                                     variable=rb_password_var,
+                                     value='display',
+                                     command=toggle_display_password)
+rb_display_password.grid(column=0, columnspan=2, row=1,
+                         padx=10, pady=10, ipadx=5, ipady=5)
+
+
+rb_hide_password = tk.Radiobutton(lbl_frm_settings,
+                                  text='Sakrij lozinku',
+                                  variable=rb_password_var,
+                                  value='hide',
+                                  command=toggle_display_password)
+rb_hide_password.grid(column=2, row=1,
+                      padx=10, pady=10, ipadx=5, ipady=5)
+
+
+
 scl_password_length_var = tk.IntVar(value=10)
 scl_password_length = tk.Scale(lbl_frm_settings,
                                orient='horizontal',
@@ -57,7 +85,7 @@ scl_password_length = tk.Scale(lbl_frm_settings,
                                variable=scl_password_length_var,
                                from_=8,
                                to=40)
-scl_password_length.grid(column=0, columnspan=3, row=0,
+scl_password_length.grid(column=0, columnspan=3, row=2,
                          padx=10, pady=10, ipadx=5, ipady=5)
 #endregion
 
@@ -84,12 +112,16 @@ btn_reset.grid(column=2, row=2,
 
 
 #region Generirana lozinka
-lbl_display_password_var = tk.StringVar(value='')
-lbl_display_password = tk.Label(root,
-                                textvariable=lbl_display_password_var,
+ent_display_password_var = tk.StringVar(value='')
+ent_display_password = tk.Entry(root,
+                                bd=0,
+                                textvariable=ent_display_password_var,
+                                width=40,
+                                justify='center',
+                                background='systembuttonface',
                                 font=('Verdana', 25))
-lbl_display_password.grid(column=0, columnspan=3, row=3,
-                          padx=10, pady=10, ipadx=5, ipady=5)
+ent_display_password.grid(column=0, columnspan=3, row=3,
+                          padx=10, pady=30, ipadx=5, ipady=5)
 #endregion
 
 
