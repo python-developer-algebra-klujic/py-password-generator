@@ -18,12 +18,11 @@ def init_db():
         print(f'Dogodila se greska init_db {ex}')
 
 
-def insert_pwd(password: Tuple[int, str, str]):
+def insert_pwd(password: Tuple[str, str]):
     insert_pwd_sql = '''
     INSERT INTO passwords (title, password)
     VALUES(?, ?)
     '''
-    password = ()
 
     try:
         with sqlite3.connect('sqlite.db') as conn:

@@ -43,6 +43,7 @@ def copy_password():
 
 def reset():
     ent_display_password_var.set('')
+    ent_password_title_var.set('')
 
 
 def toggle_display_password():
@@ -61,22 +62,29 @@ def insert_data():
     passwords = get_all_pwd()
 
     # START Solution
-
+    listbox.delete("all")
     # END Solution
 
     for password in passwords:
         listbox.insert(password[0], f'{password[1]}')
 
-
 # START Solution
+def save_pwd():
+    pwd_title = ent_password_title_var.get()
+    pwd_value = ent_display_password_var.get()
 
+    insert_pwd((pwd_title, pwd_value))
+
+    insert_data()
+
+    reset()
 # END Solution
 #endregion
 
 
 root = ctk.CTk()
 root.title('Algebra - Python Password Generator')
-root.geometry('600x400')
+# root.geometry('600x400')
 # Themes: "blue" (standard), "green", "dark-blue"
 ctk.set_default_color_theme("blue")
 # ctk.set_appearance_mode("system")  # default
@@ -190,7 +198,7 @@ ent_display_password.grid(column=0, columnspan=3, row=3,
 #region Listbox
 
 listbox = CTkListbox(root, command=show_value)
-listbox.grid(column=3, row=0, rowspan=4, sticky=tk.NS,
+listbox.grid(column=3, row=0, rowspan=5, sticky=tk.NS,
              padx=10, pady=30, ipadx=5, ipady=5)
 
 #endregion
@@ -198,19 +206,32 @@ listbox.grid(column=3, row=0, rowspan=4, sticky=tk.NS,
 
 #region Save Password
 '''
-    1. Kreirati widget za unos teksta u koji ce se unijeti title za password
-        1.1. Dodati i odgovarajucu varijablu uz widget
-    2. widget pozicionirati u odgovarajuci red i po potrebi "razvuci" na vise stupaca
-    3. Kreirati gumb za pokretanje akcije snimanja u bazu.
-        3.1. Kreirati funkciju za snimanje sadrzaja u bazu i povezati je s gumbom
-        3.2. U fiunkciji:
-            a. Uzeti vrijednost iz polja za generiranje passworda
-            b. Uzeti vrijednost iz polja za unos "apssword title"
-            c. Pozvati funkciju za snimanje podataka u bazu
-    4. Opcionalno - osvjeziti sadrzaj Listbox widgeta s novim passwordom.
+    DONE 1. Kreirati widget za unos teksta u koji ce se unijeti title za password
+    DONE     1.1. Dodati i odgovarajucu varijablu uz widget
+    DONE 2. widget pozicionirati u odgovarajuci red i po potrebi "razvuci" na vise stupaca
+    DONE 3. Kreirati gumb za pokretanje akcije snimanja u bazu.
+    DONE     3.1. Kreirati funkciju za snimanje sadrzaja u bazu i povezati je s gumbom
+    DONE     3.2. U funkciji:
+    DONE         a. Uzeti vrijednost iz polja za generiranje passworda
+    DONE         b. Uzeti vrijednost iz polja za unos "password title"
+    DONE         c. Pozvati funkciju za snimanje podataka u bazu
+    DONE 4. Opcionalno - osvjeziti sadrzaj Listbox widgeta s novim passwordom.
 '''
 # START Solution
+ent_password_title_var = ctk.StringVar(value='')
+ent_password_title = ctk.CTkEntry(root,
+                                  textvariable=ent_password_title_var,
+                                  width=300,
+                                  justify='left',
+                                  font=('Verdana', 25))
+ent_password_title.grid(column=0, columnspan=2, row=4,
+                        padx=10, pady=30, ipadx=5, ipady=5)
 
+btn_save_password = ctk.CTkButton(root,
+                                  text='Save',
+                                  command=save_pwd)
+btn_save_password.grid(column=2, row=4,
+                       padx=10, pady=10, ipadx=5, ipady=5)
 # END Solution
 #endregion
 
