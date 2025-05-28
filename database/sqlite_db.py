@@ -62,7 +62,6 @@ def get_pwd(id: int):
             cursor = conn.cursor()
             cursor.execute(get_pwd_sql, (id, ))
             password = cursor.fetchone()
-            print(password)
     except Exception as ex:
         print(f'Dogodila se greska get_pwd {ex}')
 
