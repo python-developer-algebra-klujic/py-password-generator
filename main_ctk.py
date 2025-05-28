@@ -59,8 +59,18 @@ def show_value(value):
 
 def insert_data():
     passwords = get_all_pwd()
+
+    # START Solution
+
+    # END Solution
+
     for password in passwords:
         listbox.insert(password[0], f'{password[1]}')
+
+
+# START Solution
+
+# END Solution
 #endregion
 
 
@@ -199,6 +209,9 @@ listbox.grid(column=3, row=0, rowspan=4, sticky=tk.NS,
             c. Pozvati funkciju za snimanje podataka u bazu
     4. Opcionalno - osvjeziti sadrzaj Listbox widgeta s novim passwordom.
 '''
+# START Solution
+
+# END Solution
 #endregion
 
 
