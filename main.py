@@ -16,6 +16,8 @@ def generate_password():
             rnd_char_number_range = rd.choice([(65, 90), (97, 122), (33,47), (58, 64), (91, 96), (123, 126)])
         elif cb_letters_only_var.get() and cb_numbers_only_var.get():
             rnd_char_number_range = rd.choice([(48, 57), (65, 90), (97, 122)])
+        elif cb_letters_only_var.get():
+            rnd_char_number_range = rd.choice([(65, 90), (97, 122),])
         elif cb_numbers_only_var.get():
             rnd_char_number_range = rd.choice([(48, 57)])
         elif cb_sp_characters_only_var.get():
