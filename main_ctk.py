@@ -1,6 +1,8 @@
 import random as rd
 import customtkinter as ctk
+from CTkListbox import *
 import tkinter as tk
+from database import init_db, insert_pwd, get_pwd, get_all_pwd
 
 
 #region Funkcije
@@ -49,6 +51,16 @@ def toggle_display_password():
     else:
         ent_display_password.configure(show="*")
 
+
+def show_value(value):
+    password = get_pwd(listbox.curselection() + 1)
+    ent_display_password_var.set(password[2])
+
+
+def insert_data():
+    passwords = get_all_pwd()
+    for password in passwords:
+        listbox.insert(password[0], f'{password[1]}')
 #endregion
 
 
@@ -165,4 +177,18 @@ ent_display_password.grid(column=0, columnspan=3, row=3,
 #endregion
 
 
-root.mainloop()
+#region Listbox
+
+listbox = CTkListbox(root, command=show_value)
+listbox.grid(column=3, row=0, rowspan=4, sticky=tk.NS,
+             padx=10, pady=30, ipadx=5, ipady=5)
+
+#endregion
+
+
+
+
+if __name__ == '__main__':
+    init_db()
+    insert_data()
+    root.mainloop()
