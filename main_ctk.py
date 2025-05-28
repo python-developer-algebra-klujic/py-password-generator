@@ -186,6 +186,21 @@ listbox.grid(column=3, row=0, rowspan=4, sticky=tk.NS,
 #endregion
 
 
+#region Save Password
+'''
+    1. Kreirati widget za unos teksta u koji ce se unijeti title za password
+        1.1. Dodati i odgovarajucu varijablu uz widget
+    2. widget pozicionirati u odgovarajuci red i po potrebi "razvuci" na vise stupaca
+    3. Kreirati gumb za pokretanje akcije snimanja u bazu.
+        3.1. Kreirati funkciju za snimanje sadrzaja u bazu i povezati je s gumbom
+        3.2. U fiunkciji:
+            a. Uzeti vrijednost iz polja za generiranje passworda
+            b. Uzeti vrijednost iz polja za unos "apssword title"
+            c. Pozvati funkciju za snimanje podataka u bazu
+    4. Opcionalno - osvjeziti sadrzaj Listbox widgeta s novim passwordom.
+'''
+#endregion
+
 
 
 if __name__ == '__main__':
